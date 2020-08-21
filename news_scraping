@@ -1,0 +1,30 @@
+from bs4 import BeautifulSoup
+from urllib.request as req
+
+parse_html = BeautifulSoup(html, 'html.parser')
+
+title_lists = parse_html.find_all('a')
+
+
+# タイトルとリスト一覧作成
+
+title_list=[]
+url_list=[]
+
+for i in title_list:
+  title_list.append(i.string)
+  url_list.append(id.attrs['href'])
+  
+
+#データフレーム作成
+
+df_title_url = pd.DataFrame({'Title':title_list, 'URL':url_list})
+
+＃　None,null を消す
+df_notnull = df_title_url.dropna(how='any')
+
+#　CSV保存
+df_notnull.to_csv('filename')
+
+#絞りたい時
+df_notnull['Title'].str.contains('文字列’）
