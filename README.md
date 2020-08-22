@@ -1,4 +1,4 @@
-import urllib.request as req
+import urllib.request
 from bs4 import BeautifulSoup
 
 
