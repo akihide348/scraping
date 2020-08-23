@@ -1,1 +1,34 @@
 
+
+from bs4 import BeautifulSoup
+import urllib.request as req
+import pandas as pd
+
+
+url = "https://b.hatena.ne.jp/hotentry/it"
+res = req.urlopen(url)
+sp = BeautifulSoup(res, 'html.parser')
+
+# リスト作成
+
+list =[]
+url_list = []
+oo=sp.find_all('a', class_='js-keyboard-openable',rel='noopener')
+for i in oo:
+    list.append(i.string)
+    url_list.append(i.attrs['href'])
+
+# データフレーム作成
+
+df_title_url = pd.DataFrame({'Title':list, 'URL':url_list})
+df_title_url
+
+# 欠損値削除
+
+df_notnull = df_title_url.dropna(how='any')
+df_notnull
+
+# CSVに保存
+
+df_notnull.to_csv('hateburo.csv')
+
